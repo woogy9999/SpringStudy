@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:c="http://www.springframework.org/schema/c"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	<!-- 등록된 클래스 : 빈 -->
+	<!-- 
+			clsMap.put("sawon",Class.forName("com.sist.spring5.Sawon()))
+	 -->
+	    <!-- 등록된 클래스 : 빈 -->
+    <bean id="sawon" class="com.sist.main.Sawon"/>
+    
+   <bean id="sa1" class="com.sist.main.Sawon"
+          p:sabun="1"
+          p:name="홍길동"
+          p:dept="기획부"
+          p:loc="서울"
+          p:pay="4000"/>
+      
+    <!-- Setter 주입(p 네임스페이스) -->
+    
+    <bean id="sa2" class="com.sist.main.Sawon" 
+        p:sabun="2"
+        p:name="심청이"
+        p:dept="총무부"
+        p:loc="경기"
+        p:pay="3500"/>
+    
+    <!-- Setter 주입(property 사용) -->
+    <bean id="sa6" class="com.sist.main.Sawon">
+        <property name="loc" value="서울"/>
+        <property name="pay" value="3000"/>
+    </bean>
+    
+    <!-- 생성자 주입 (constructor-arg 사용) -->
+    <bean id="sa3" class="com.sist.main.Sawon">
+    <constructor-arg value="3"/>
+    <constructor-arg value="박문수"/>
+    <constructor-arg value="영업부"/>
+    <constructor-arg value="대전"/>
+    <constructor-arg value="4500"/>
+	</bean>
+	
+	
+    <!-- 생성자 주입 (c 네임스페이스 사용) -->
+    <bean id="sa4" class="com.sist.main.Sawon"
+        c:sabun="4"
+        c:name="이순신"
+        c:dept="기획부"
+        c:loc="강원"
+        c:pay="4000"/>
+    
+    <!-- 생성자 주입 (c:_0 방식 사용, 순서 중요) -->
+    <bean id="sa5" class="com.sist.main.Sawon"
+        c:_0="5"
+        c:_1="강감찬"
+        c:_2="기획부"
+        c:_3="인천"
+        c:_4="5000"/>
+    
+</beans>
