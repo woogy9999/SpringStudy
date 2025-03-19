@@ -15,7 +15,7 @@ public class MyBasicDataSource extends BasicDataSource{
 		setDriverClassName("oracle.jdbc.driver.OracleDriver");
 		setUrl("jdbc:oracle:thin:@localhost:1521:XE");
 		setUsername("hr");
-		setPassword("happy");
+		setPassword("happy"); 
 	}
 
 }

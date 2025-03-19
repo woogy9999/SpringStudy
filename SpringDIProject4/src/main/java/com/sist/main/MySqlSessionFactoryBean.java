@@ -12,4 +12,4 @@ public class MySqlSessionFactoryBean extends SqlSessionFactoryBean{
 	{
 		setDataSource(new MyBasicDataSource());
 	}
-}
+} 
