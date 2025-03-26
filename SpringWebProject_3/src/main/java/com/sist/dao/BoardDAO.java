@@ -2,9 +2,12 @@ package com.sist.dao;
 
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
 
 import com.sist.mapper.*;
@@ -15,6 +18,8 @@ public class BoardDAO {
 	@Autowired
 	private BoardMapper mapper;
 
+	@Autowired
+	private BCryptPasswordEncoder encoder;
 	/*
 	 * @Select("SELECT no,subject,name,hit,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,num "
 	 * +"FROM (SELECT no,subject,name,hit,regdate,rownum as num "
@@ -40,4 +45,66 @@ public class BoardDAO {
 	public void boardInsert(BoardVO vo) {
 		mapper.boardInsert(vo);
 	}
+	/*
+	 * @Update("UPDATE freeboard SET "
+  		+ "hit=hit+1 "
+  		+ "WHERE no=#{no}")
+  public void hitIncrement(int no);
+
+  @Select("SELECT no,name,subject,content,hit,TO_CHAR(regdate,'YYYY-MM-DD') as dbday "
+  		+ "FROM freeboard "
+  		+ "WHERE no=#{no}")
+  public BoardVO boardDetailData(int no);
+  
+	 */
+	 public BoardVO boardDetailData(int no) {
+		 mapper.hitIncrement(no);
+		 return mapper.boardDetailData(no);
+	 }
+		 
+	  public BoardVO boardUpdateData(int no)
+	   {
+		   return mapper.boardDetailData(no);
+	   }
+	  
+	  /*
+	   * 
+		  // 수정 
+		  @Select("SELECT pwd FROM freeboard "
+		  		+ "WHERE no=#{no}")
+		  public String boardGetPassword(int no);
+		  
+		  // 삭제 
+		  @Update("UPDATE freeboard SET "
+		  		+ "name=#{name},subject=#{subject},content=#{content} "
+		  		+ "WHERE no=#{no}")
+		  public void boardUpdate(BoardVO vo);								
+	   */
+	  
+	  public boolean boardUpdate(BoardVO vo) {
+		  boolean bCheck=false;
+		  String db_pwd=mapper.boardGetPassword(vo.getNo());
+		  if(encoder.matches(vo.getPwd(), db_pwd)) {
+			  mapper.boardUpdate(vo);
+			  bCheck=true;
+			} /*
+				 * else { bCheck=false; }
+				 */
+		  return bCheck;
+		  
+	  };
+	  
+//	  @Delete("DELETE FROM freeboard "
+//		  		+ "WHERE no=#{no}")
+//		  public void boardDelete(int no);
+	  
+	  public boolean boardDelete(int no,String pwd) {
+		  boolean bCheck=false;
+		  String db_pwd=mapper.boardGetPassword(no);
+		  if(encoder.matches(pwd, db_pwd)) {
+			  mapper.boardDelete(no);
+			  bCheck=true;
+			}
+		  return bCheck;
+	  }
 }
