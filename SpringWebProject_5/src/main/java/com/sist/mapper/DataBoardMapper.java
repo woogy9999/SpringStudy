@@ -1,6 +1,7 @@
 package com.sist.mapper;
 import java.util.*;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -38,4 +39,29 @@ public interface DataBoardMapper {
 		  +"WHERE no=#{no}")
    public DataBoardVO databoardDetailData(int no);
    
+   @Select("SELECT pwd FROM springdataboard "
+		  +"WHERE no=#{no}")
+   public String databoardGetPassword(int no);
+   
+   @Delete("DELETE FROM springdataboard "
+		  +"WHERE no=#{no}")
+   public void databoardDelete(int no);
+   
+   @Select("SELECT filecount FROM springdataboard "
+		  +"WHERE no=#{no}")
+   public int databoardFileCount(int no);
+   
+   @Update("UPDATE springdataboard SET "
+		  +"name=#{name},subject=#{subject},content=#{content} "
+		  +"WHERE no=#{no}")
+   public void databoardUpdate(DataBoardVO vo);
+   /*
+    *   여러개 있는 경우 => INSERT , UPDATE 
+    *                  SELECT => 조건 
+    *                  
+    *   => 매개변수 처리 : 한개일 경우 => 입란 데이터 타입 
+    *      검색 : (String fd)
+    *      페이지 : (int page) ...
+    *   => HashMap / VO / @Param
+    */
 }
