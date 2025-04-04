@@ -20,6 +20,33 @@
 		p:maxWait="#{db['maxWait']}" />
 
 	<tx:annotation-driven />
+	
+	
+	<!-- 트랜잭션  
+		DQL(SELECT) = commit (트랜잭션 대상이 아니다)
+		DML(INSERT,UPDATE,DELETE)
+			=> 저장 (COMMIT) , 취소(ROLLBACK)
+		=> 일괄처리
+			여러개의 SQL 문장
+			예) 입고 / 재고
+				출고 /재고
+				카드결재 / 포인트 추가
+		@Around
+		  setAutoCommit(false)
+		  SQL
+		  SQL
+		  commit()
+		@AfterThrowing
+		 rollback()
+		@After
+		 setAutoCommit(true)
+	-->
+	<bean id='transactionManager'
+	class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+	p:dataSource-ref="ds"
+	/>
+	
+	
 	<!-- @Transactional => AOP를 이용해서 처리 -->
 	
 	<!-- MyBatis 로그 확인 -->

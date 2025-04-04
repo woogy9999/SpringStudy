@@ -15,7 +15,7 @@
      <h3>Spring를 이용한 게시판</h3>
      <table class="table">
       <tr>
-        <td><a href="insert.do" class="btn btn-sm btn-primary">새글</a></td>
+        <td><a href="replyInsert.do" class="btn btn-sm btn-primary">새글</a></td>
       </tr>
      </table>
      <table class="table">
@@ -29,7 +29,20 @@
        <c:forEach var="vo" items="${list }">
          <tr>
 	         <td width=10% class="text-center">${vo.no }</td>
-	         <td width=45%><a href="detail.do?no=${vo.no }">${vo.subject }</a></td>
+	         <td width=45%>
+	         <c:if test="${vo.group_teb>0 }">
+	         	<c:forEach var="i" begin="1" end="${vo.group_teb }">
+	         		&nbsp;&nbsp;
+	         	</c:forEach>
+	         	<img src="../replyboard/re_icon.png">
+	         </c:if>
+	         <c:if test="${vo.subject!=msg}" >
+	         <a href="detail.do?no=${vo.no }">${vo.subject }</a>
+	         </c:if>
+	         <c:if test="${vo.subject==msg }">
+	         <span style="color:gray;">${vo.subject }</span>
+	         </c:if>
+	         </td>
 	         <td width=15% class="text-center">${vo.name}</td>
 	         <td width=20% class="text-center">
 	           <fmt:formatDate value="${vo.regdate }" 

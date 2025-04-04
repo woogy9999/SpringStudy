@@ -5,50 +5,46 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 </head>
 <body>
-   <h3 class="text-center">수정하기</h3>
-   <form method="post" action="update_ok.do" id="frm">
+   <h3 class="text-center">답변하기</h3>
+   <form method="post" action="reply_ok.do">
    <table class="table">
      <tr>
       <th width=15%>이름</th>
       <td width=85%>
        <input type=text name=name size=20 required
-        class="input-sm" value="${vo.name }"
+        class="input-sm"
        >
-       <input type="hidden" name=no value="${vo.no }"
-       v-model="no">
+       <input type="hidden" name="pno" value="${no }">
       </td>
      </tr>
      <tr>
       <th width=15%>제목</th>
       <td width=85%>
        <input type=text name=subject size=50 required
-        class="input-sm" value="${vo.subject }"
+        class="input-sm"
        >
       </td>
      </tr>
      <tr>
       <th width=15%>내용</th>
       <td width=85%>
-       <textarea rows="5" cols="52" name=content required
-       >${vo.content }</textarea>
+       <textarea rows="5" cols="52" name=content required></textarea>
       </td>
      </tr>
      <tr>
       <th width=15%>비밀번호</th>
       <td width=85%>
        <input type=password name=pwd size=10 required
-        class="input-sm" 
+        class="input-sm"
        >
       </td>
      </tr>
      <tr>
        <td colspan="2" align=center>
-         <input type=submit value="수정">
-         <input type=button value="취소"
+         <input type=submit value="답변" class="btn btn-xs btn-danger">
+         <input type=button value="취소" class="btn btn-xs btn-success" 
           onclick="javascript:history.back()"
          >
        </td>

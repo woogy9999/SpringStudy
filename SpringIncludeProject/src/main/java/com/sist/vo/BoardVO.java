@@ -1,6 +1,7 @@
 package com.sist.vo;
 /*
  * NO         NOT NULL NUMBER         
+
 NAME       NOT NULL VARCHAR2(51)   
 SUBJECT    NOT NULL VARCHAR2(2000) 
 CONTENT    NOT NULL CLOB           

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.sist.mapper.BoardMapper;
 import com.sist.vo.BoardVO;
@@ -66,6 +67,8 @@ public class BoardDAO {
 //	public void boardHitIncrement(int no) {
 //		mapper.boardHitIncrement(no);
 //	}
+	
+	@Transactional
 	public BoardVO boardDetailData(int no) {
 		mapper.boardHitIncrement(no);
 		return mapper.boardDetailData(no);
