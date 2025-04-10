@@ -29,13 +29,14 @@ p {
 <body>
 <div class="container">
 		<div class="row">
-			<input type="text" size=20 class="input-sm" ref="fd" v-model="fd" v-on:keyup.enter="find()">
+			<input type="text" size=20 class="input-sm" ref="fd" v-model="fd" v-on:keyup.enter="find()"
+			placeholder="지역명으로 검색">
 		</div>
 		<div style="height: 10px"></div>
 		<div class="row">
 			 <div class="col-md-3" v-for="vo in food_list">
 			    <div class="thumbnail">
-			      <a href="#">
+			      <a :href="'../food/detail.do?fno='+vo.fno">
 			        <img :src="'https://www.menupan.com'+vo.poster"  style="width:230px; height: 200px;">
 			        <div class="caption">
 			          <p>{{vo.name}}</p>
@@ -61,7 +62,7 @@ p {
 					food_list:[],
 					curpage:1,
 					totalpage:0,
-					fd:'커피'
+					fd:'서울'
 				}
 			},
 			mounted(){

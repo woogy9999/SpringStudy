@@ -40,4 +40,8 @@ public class FoodDAO {
 	public int foodFindTotalPage(String fd) {
 		return mapper.foodFindTotalPage(fd);
 	}
+	// 상세보기
+	public FoodVO foodDetailData(int fno) {
+		return mapper.foodDetailData(fno);
+	}
 }

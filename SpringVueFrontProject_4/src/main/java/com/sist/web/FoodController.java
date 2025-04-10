@@ -16,5 +16,9 @@ public class FoodController {
 		return "food/list";
 	}
 	
-
+	@GetMapping("food/detail.do")
+	public String food_detail() {
+		
+		return "food/detail";
+	}
 }
