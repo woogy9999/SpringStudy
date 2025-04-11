@@ -1,5 +1,6 @@
 package com.sist.web;
 
+import org.apache.ibatis.annotations.Select;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,4 +42,35 @@ public class ReplyRestController {
 
 		return replyListData(vo.getBno());
 	}
+	
+	@GetMapping("reply/update_vue.do")
+	public List<ReplyVO> replyUpdate(ReplyVO vo,HttpSession session)
+	{
+		dao.replyUpdate(vo);
+		return replyListData(vo.getBno());
+	}
+	
+	
+	@GetMapping("reply/delete_vue.do")
+	public List<ReplyVO> replyDelete(int no,int bno)
+	{
+		dao.replyDelete(no);
+		return replyListData(bno);
+	}
+	
+	@GetMapping("reply/reply_reply_insert.do")
+	public List<ReplyVO> replyreplyinsert(int pno,int bno,String msg,HttpSession session)
+	{	
+		String id=(String)session.getAttribute("id");
+		String name=(String)session.getAttribute("name");
+		ReplyVO vo=new ReplyVO();
+		vo.setBno(bno);
+		vo.setMsg(msg);
+		vo.setId(id);
+		vo.setName(name);
+		dao.replyReplyInsert(pno, vo);
+		return replyListData(bno);
+	}
+	
+	
 }

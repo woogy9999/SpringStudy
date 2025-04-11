@@ -5,6 +5,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.*;
 import com.sist.mapper.*;
 import com.sist.vo.*;
@@ -62,4 +64,6 @@ public class DataBoardDAO {
 	   mapper.hitIncrement(no);
 	   return mapper.databoardDetailData(no);
    }
+   
+   
 }
