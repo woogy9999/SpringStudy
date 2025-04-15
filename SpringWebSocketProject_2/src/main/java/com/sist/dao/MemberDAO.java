@@ -26,7 +26,6 @@ public class MemberDAO {
 		if(count==0)
 		{
 			vo.setMsg("NOID");
-			System.out.println("nono");
 			
 		}else {
 			MemberVO dbvo=mapper.memberInfoData(id);
@@ -34,13 +33,12 @@ public class MemberDAO {
 			{
 				vo.setMsg("OK");
 				vo.setId(dbvo.getId());
-				vo.setPwd(dbvo.getName());
+				vo.setName(dbvo.getName());
 				vo.setSex(dbvo.getSex());
 				// 로그인시에 세션에 저장할 데이터 
 				System.out.println("asdasd");
 			}else {
 				vo.setMsg("NOPWD");
-				System.out.println("qqqq");
 			}
 		}
 		

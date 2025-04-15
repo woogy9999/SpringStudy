@@ -54,16 +54,13 @@ function onMessage(event)
 	*/
 	if(data.substring(0,4)==='msg:')
 	{
-		appendMessage(data.substring(4))
+		$('#recvMsg').append(data.substring(4)+"<br>")
 	}
-}
-function appendMessage(msg)
-{
-	 $('#recvMsg').append(msg+"<br>")
 	 let ch=$('#chatArea').height()
 	 let m=$('#recvMsg').height()-ch
 	 $('#chatArea').scrollTop(m)
 }
+
 // 종료 
 function onClose(event)
 {
@@ -85,6 +82,7 @@ function send(){
 }
 $(function(){
 	$('#startBtn').click(function(){
+		
 		connection()
 	})
 	$('#endBtn').click(function(){
@@ -101,11 +99,7 @@ $(function(){
 </head>
 <body>
   <div class="container">
-  	<div class="row" id="logApp">
-  	  <div class="text-right">
-  	  	
-  	  </div>
-  	</div>
+    
     <div class="row">
      <h3>Spring WebSocket 채팅</h3>
      <table class="table">
