@@ -43,4 +43,7 @@ public class BusanInfoDAO {
 	  {
 		  return mapper.busanInfoTotalPage(cno);
 	  }
+	  public BusanInfoVO busanInfoDetailData(int no) {
+		  return mapper.busanInfoDetailData(no);
+	  }
 }

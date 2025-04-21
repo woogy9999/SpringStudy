@@ -11,7 +11,7 @@ import com.sist.vo.*;
 public class MemberDAO {
   @Autowired
   private MemberMapper mapper;
-  
+
   /*
    *   @Insert("INSERT INTO projectMember(userid,username,userpwd,"
 		 +"sex,birthday,email,post,addr1,addr2,phone,content) "
@@ -43,6 +43,6 @@ public class MemberDAO {
 	  return mapper.memberSessionData(userid);
   }
    
-
+  
   
 }

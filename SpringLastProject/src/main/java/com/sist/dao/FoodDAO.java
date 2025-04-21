@@ -33,4 +33,8 @@ public class FoodDAO {
    {
 	   return mapper.busanFoodTotalPage();
    }
+   
+   public FoodVO busanFoodDetailData(int fno) {
+	   return mapper.busanFoodDetailData(fno);
+   }
 }

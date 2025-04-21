@@ -17,7 +17,7 @@
 	            <div class="row h-100 align-items-center">
 	                <div class="col-12">
 	                    <div class="bradcumb-title text-center">
-	                        <h2>${titles}</h2>
+	                        <h2>부산 맛집 목록</h2>
 	                    </div>
 	                </div>
 	            </div>
@@ -49,8 +49,8 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.1s">
                         <!-- Post Thumb -->
                         <div class="post-thumb">
-                       		  <a :href="'../busan/detail.do?no='+vo.no">
-                            <img :src="vo.poster" alt="">
+                       		  <a :href="'../food/detail.do?fno='+vo.fno">
+                            <img :src="'https://www.menupan.com'+vo.poster">
                               </a>
                         </div>
                         <!-- Post Content -->
@@ -63,8 +63,8 @@
                                     </div>
                                 </div>
                             </div>
-                            <a :href="'../busan/detail.do?no='+vo.no">
-                                <h4 class="post-headline">{{vo.title}}</h4>
+                            <a :href="'../food/detail.do?fno='+vo.fno">
+                                <h4 class="post-headline">{{vo.name}}</h4> 
                             </a>
                         </div>
                     </div>
@@ -99,7 +99,6 @@
     	
     	data(){
     		return {
-    			cno:${cno},
     			list:[],
     			curpage:1,
     			totalpage:0,
@@ -138,10 +137,9 @@
     			return arr
     		},
     		dataRecv(){
-    			axios.get('http://localhost:8080/web/busan/info_vue.do',{
+    			axios.get('http://localhost:8080/web/food/list_vue.do',{
         			params:{
         				page:this.curpage,
-        				cno:this.cno
         			}
         		}).then(res=>{
         			console.log(res.data)

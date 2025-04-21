@@ -30,7 +30,7 @@
                         <div class="login_register_area d-flex">
                           <c:if test="${sessionScope.userid==null }">
                             <div class="login">
-                                <a href="../member/login.do">로그인</a>
+                                <a href="../member/login.do">로그인</a> 
                             </div>
                             <div class="register">
                                 <a href="../member/join.do">회원가입</a>
@@ -73,7 +73,7 @@
                 <!-- Logo Area Start -->
                 <div class="col-12">
                     <div class="logo_area text-center">
-                        <a href="index.html" class="yummy-logo">부산 여행</a>
+                        <a href="../main/main.do" class="yummy-logo">부산 여행</a>
                     </div>
                 </div>
             </div>
@@ -116,11 +116,12 @@
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="yummyDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">부산 맛집</a>
                                     <div class="dropdown-menu" aria-labelledby="yummyDropdown">
-                                        <a class="dropdown-item" href="index.html">맛집 목록</a>
+                                        <a class="dropdown-item" href="../food/list.do">맛집 목록</a>
                                         <a class="dropdown-item" href="archive.html">맛집 검색</a>
-                                        <a class="dropdown-item" href="single.html">맛집 추천</a>
-                                        <a class="dropdown-item" href="static.html">맛집 예약</a>
-                                        
+                                        <sec:authorize access="hasAnyRole('ROLE_USER','ROLE_ADMIN')">
+	                                        <a class="dropdown-item" href="single.html">맛집 추천</a>
+	                                        <a class="dropdown-item" href="static.html">맛집 예약</a>
+                                       </sec:authorize>
                                     </div>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -137,13 +138,16 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">커뮤니티</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="archive.html">마이페이지</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="../main/delete.do">관리자페이지</a>
-                                </li>
-                               
+	                                <sec:authorize access="hasRole('ROLE_USER')">
+		                                <li class="nav-item">
+		                                    <a class="nav-link" href="#">마이페이지</a>
+		                                </li>
+	                                </sec:authorize>
+	                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+		                                <li class="nav-item">
+		                                    <a class="nav-link" href="#">관리자페이지</a>
+		                                </li>
+	                                </sec:authorize>
                             </ul>
                         </div>
                     </nav>

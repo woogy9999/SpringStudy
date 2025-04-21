@@ -17,10 +17,11 @@ public class BusanInfoRestController {
 	@GetMapping("busan/info_vue.do")
 	public Map busan_info(int page,int cno) {
 		
+		
 		// 데이터베이스에 설정할 변수
 		Map map =new HashedMap();
 		map.put("cno", cno);
-		map.put("start", (page-1)*12);
+		map.put("start", (page-1)*12+1);
 		map.put("end", (page*12));
 		
 		List<BusanInfoVO> list=service.busanInfoListData(map);
