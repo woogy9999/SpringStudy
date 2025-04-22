@@ -11,6 +11,8 @@ import com.sist.vo.BusanInfoVO;
 
 import java.util.*;
 
+import javax.servlet.http.HttpSession;
+
 @Controller
 public class BusanInfoController {
 	@Autowired 
@@ -30,8 +32,9 @@ public class BusanInfoController {
 	}
 	
 	@GetMapping("busan/detail.do")
-	public String busan_detail(int no,Model model) {
+	public String busan_detail(int no,Model model,HttpSession session) {
 		
+		String id=(String)session.getAttribute("userid");
 		BusanInfoVO vo=service.busanInfoDetailData(no);
 		
 		String addr1=vo.getAddress();
@@ -40,6 +43,7 @@ public class BusanInfoController {
 		addr2=addr2.substring(0,addr2.indexOf(" "));
 		
 		model.addAttribute("vo",vo);
+		model.addAttribute("sessionId",id);
 		model.addAttribute("addr",addr2);
 		model.addAttribute("main_jsp","../busan/info_detail.jsp");
 		return "main/main";

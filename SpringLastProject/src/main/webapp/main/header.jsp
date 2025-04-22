@@ -135,17 +135,19 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="#">부산 특산물</a>
                                 </li>
+                                <c:if test="${sessionScope.userid!=null }">
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">커뮤니티</a>
+                                    <a class="nav-link" href="../reserve/main.do">빠른 예약</a>
                                 </li>
+                                </c:if> 
 	                                <sec:authorize access="hasRole('ROLE_USER')">
 		                                <li class="nav-item">
-		                                    <a class="nav-link" href="#">마이페이지</a>
+		                                    <a class="nav-link" href="../mypage/reserve_list.do">마이페이지</a>
 		                                </li>
 	                                </sec:authorize>
 	                                <sec:authorize access="hasRole('ROLE_ADMIN')">
 		                                <li class="nav-item">
-		                                    <a class="nav-link" href="#">관리자페이지</a>
+		                                    <a class="nav-link" href="../adminpage/reserve_list.do">관리자페이지</a>
 		                                </li>
 	                                </sec:authorize>
                             </ul>
