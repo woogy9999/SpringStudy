@@ -54,7 +54,7 @@ public class ConmmentRestController {
 	//목록
 	@GetMapping("comment/list_vue.do")
 	public Map comment_list(int page, int cno, int type) {
-		return comment_list(page, cno, type);
+		return commontListData(page, cno, type);
 	}
 	//추가
 	@PostMapping("commment/insert_vue.do")
