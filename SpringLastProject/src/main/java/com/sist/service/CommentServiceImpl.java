@@ -32,4 +32,22 @@ public class CommentServiceImpl implements CommentService {
 		cDao.commentInsert(vo);
 	}
 
+	@Override
+	public void commentUpdate(String msg, int no) {
+		// TODO Auto-generated method stub
+		cDao.commentUpdate(msg, no);
+	}
+
+	@Override
+	public void commentReplyReplyInsert(int pno, CommentVO vo) {
+		// TODO Auto-generated method stub
+		cDao.commentReplyReplyInsert(pno, vo);
+	}
+
+	@Override
+	public void commentDelete(int no) {
+		// TODO Auto-generated method stub
+		cDao.commentDelete(no);
+	}
+
 }

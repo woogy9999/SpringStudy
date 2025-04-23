@@ -57,7 +57,7 @@ public class ConmmentRestController {
 		return commontListData(page, cno, type);
 	}
 	//추가
-	@PostMapping("commment/insert_vue.do")
+	@PostMapping("comment/insert_vue.do")
 	public Map comment_insert(CommentVO vo, HttpSession session) {
 		String userid=(String)session.getAttribute("userid");
 		String username=(String)session.getAttribute("username");
@@ -71,6 +71,31 @@ public class ConmmentRestController {
 		
 	}
 	//수정
+	@PostMapping("comment/update_vue.do")
+	public Map comment_update(CommentVO vo) {
+		service.commentUpdate(vo.getMsg(), vo.getNo());
+		return commontListData(1, vo.getCno(), vo.getType());
+	}
 	//삭제
 	//대댓글
+	@PostMapping("comment/reply_insert_vue.do")
+	public Map comment_reply_insert(int pno,CommentVO vo,HttpSession session) {
+		
+		String userid=(String)session.getAttribute("userid");
+		String username=(String)session.getAttribute("username");
+		String sex=(String)session.getAttribute("sex");
+		
+		vo.setUserid(userid);
+		vo.setUsername(username);
+		vo.setSex(sex);
+		
+		service.commentReplyReplyInsert(pno, vo);
+		return commontListData(1, vo.getCno(), vo.getType());
+	}
+	
+	@GetMapping("comment/delete_vue.do")
+	public Map comment_delete(CommentVO vo) {
+		service.commentDelete(vo.getNo());
+		return commontListData(1, vo.getCno(), vo.getType());
+	}
 }

@@ -34,12 +34,46 @@ public interface CommentMapper {
 	public void commentInsert(CommentVO vo);
 
 	
-//	// 3. 댓글 수정
-//	@Update("UPDATE busanReply SET msg=#{msg} WHERE no=#{no}")
-//	public void commentUpdate(CommentVO vo);
-//	
+	// 3. 댓글 수정
+	@Update("UPDATE busanReply SET msg=#{msg} WHERE no=#{no}")
+	public void commentUpdate(@Param("msg") String msg, @Param("no") int no);
+	
 //	// 4. 댓글 삭제
 //	@Delete("DELETE FROM busanReply WHERE no=#{no}")
 //	public void commentDelete(int no);
 	
+	//대댓글
+	@Select("SELECT group_id,group_step "
+			+ "FROM busanReply "
+			+ "WHERE no=#{no}")
+	public CommentVO commentParentInfoData(int no);
+	
+	@Update("UPDATE busanReply SET "
+			+ "group_step=group_step+1 "
+			+ "WHERE group_id=#{group_id} AND group_step>#{group_step}")
+	public void commentGroupStepIncrement(CommentVO vo);
+	
+	  @Insert("INSERT INTO busanReply(no,cno,type,userid,username,sex,msg,group_id,group_step) "
+			  +"VALUES((SELECT NVL(MAX(no)+1,1) FROM busanReply),"
+			  +"#{cno},#{type},#{userid},#{username},"
+			  +"#{sex},#{msg},#{group_id},"
+			  +"#{group_step})")
+	public void commentReplyReplyInsert(CommentVO vo);
+	
+	  
+	  @Delete({
+		    "<script>",
+		    "DELETE FROM busanReply ",
+		    "WHERE ",
+		    "<choose>",
+		        "<when test='group_step == 0'>",
+		            "group_id = #{group_id}",
+		        "</when>",
+		        "<otherwise>",
+		            "no = #{no}",
+		        "</otherwise>",
+		    "</choose>",
+		    "</script>"
+		})
+		public void commentDelete(Map map);
 }

@@ -12,4 +12,7 @@ public interface CommentService {
 	public int commentTotalPage(int cno, int type);
 
 	public void commentInsert(CommentVO vo);
+	public void commentUpdate(String msg,int no);
+	public void commentReplyReplyInsert(int pno,CommentVO vo);
+	public void commentDelete(int no) ;
 }

@@ -16,7 +16,7 @@
             <div class="row h-100 align-items-center">
                 <div class="col-12">
                     <div class="bradcumb-title text-center">
-                        <h2>맛집 상세보기</h2>
+                        <h2>상품 상세보기</h2>
                     </div>
                 </div>
             </div>
@@ -37,75 +37,49 @@
             </div>
         </div>
     </div>
-    <section class="single_blog_area section_padding_80">
+    <section class="single_blog_area section_padding_80" id="detailApp">
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-8">
                     <div class="row no-gutters">
-                          <div class="col-12 col-sm-12">
-                            <div class="related-post-area section_padding_50">
-                              
-                                <div class="related-post-slider owl-carousel">
-                                    <!-- Single Related Post-->
-                                    <c:forEach items="${list }" var="img">
-	                                    <div class="single-post">
-	                                        <!-- Post Thumb -->
-	                                        <div class="post-thumb">
-	                                            <img src="http://www.menupan.com${img }" alt="">
-	                                        </div>
-	                                    </div>
-                                    </c:forEach>
-                                </div>
-                              </div>
-                            </div>
+                          
                     <%-- 상세보기 --%>
                     <table class="table">
                       <tr>
-                       <td width=30% class="text-center" rowspan="8">
-                         <img src="https://www.menupan.com${vo.poster}" style="width:270px;height: 300px">
+                       <td width=30% class="text-center" rowspan="7">
+                         <img :src="vo.goods_poster" style="width:270px;height: 300px">
                        </td>
                        <td colspan="2">
-                        <h3>${vo.name}&nbsp;<span style="color:orange">${vo.score }</span></h3>
+                        <h3>{{vo.goods_name}}</h3>
                        </td>
                       </tr>
                       <tr>
-                        <th width=25%>주소</th>
-                        <td width=45%>${vo.address }</td>
+                        <td colspan="2" style="color:gray;">{{vo.goods_sub }}</td>
                       </tr>
                       <tr>
-                        <th width=25%>전화</th>
-                        <td width=45%>${vo.phone }</td>
+                        <th width=25% style="color:red;">{{vo.goods_discount}}</th>
+                        <td width=45%>{{vo.goods_price }}</td>
                       </tr>
                       <tr>
-                        <th width=25%>음식종류</th>
-                        <td width=45%>${vo.type }</td>
+                        <th width=25%>배송</th>
+                        <td width=45%>{{vo.goods_delivery }}</td>
                       </tr>
                       <tr>
-                        <th width=25%>가격대</th>
-                        <td width=45%>${vo.price }</td>
+                        <th width=25%>수량</th>
+                        <td width=45%></td>
                       </tr>
                       <tr>
-                        <th width=25%>주차</th>
-                        <td width=45%>${vo.parking }</td>
+                        <th width=25%>총금액</th>
+                        <td width=45%></td>
                       </tr>
                       <tr>
-                        <th width=25%>영업시간</th>
-                        <td width=45%>${vo.time }</td>
-                      </tr>
-                      <tr>
-                        <th width=25%>테마</th>
-                        <td width=45%>${vo.theme }</td>
-                      </tr>
-                    </table>
-                    <table class="table">
-                      <tr>
-                        <td>${vo.content }</td>
+                        <td colspan="2"></td>
                       </tr>
                     </table>
                     </div>
                 </div>
             </div>
-        </div>
+       
         
         <%--  댓글 위치 --%>
         <div style="height: 10px"></div>
@@ -207,20 +181,20 @@
                                       </td>
                                      </tr>
                                     </table>
-                                </div>
                              </div>
-                            </c:if>
-
-            </div>
-                   
+                        </div>
+                   </c:if>
+              </div>
+          </div>
     </section>
     <script>
     let replyApp=Vue.createApp({
    	 data(){
    		 return {
+   			 vo: {},
    			 reply_list:[],
-   			 cno:${vo.fno},
-   			 type:2,
+   			 cno:${no},
+   			 type:3,
    			 curpage:1,
    			 sessionId:'${sessionId}',
    			 totalpage:0,
@@ -232,6 +206,15 @@
    		 }
    	 },
    	 mounted(){
+   		axios.get('../goods/detail_vue.do',{
+   			params:{
+   				no:this.cno
+   			}
+   		}).then(res=>{
+   			this.vo=res.data
+   		}).catch(error=>{
+   			console.log(error.response)
+   		})
    		 this.dataRecv()
    	 },
    	 methods:{
@@ -405,13 +388,13 @@
    				 this.totalpage=res.data.totalpage
    				 this.startPage=res.data.startPage
    				 this.endPage=res.data.endPage
-   				 
+   				  
    			 }).catch(error=>{
    				 console.log(error.response)
    			 })
    		 }
    	 }
-    }).mount("#replyApp")
+    }).mount("#detailApp")
     
     </script>
 </body>
