@@ -2,11 +2,15 @@ package com.sist.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
-import com.sist.vo.FoodVO;
-import com.sist.vo.GoodsVO;
+import com.sist.vo.*;
 
 public interface GoodsMapper {
 
@@ -25,4 +29,6 @@ public interface GoodsMapper {
 		   @Select("SELECT * FROM goods_all "
 		   		+ "WHERE no=#{no}")
 		   public GoodsVO busanGoodsDetailData(int no);
+		   
+		   
 }

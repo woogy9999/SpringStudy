@@ -17,6 +17,45 @@ public class ReserveController {
 	@Autowired
 	private ReserveService service;
 	
+	@Autowired
+	private GoodsService gserve;
+	
+	@GetMapping("mypage/mypage_main.do")
+	public String mypage_main(Model model)
+	{
+		model.addAttribute("main_jsp","../mypage/mypage_main.jsp");
+		return "main/main";
+	}
+	
+	@GetMapping("mypage/cart_delete.do")
+	public String cart_delete(int cno)
+	{
+		gserve.goodsCartCancel(cno);
+		return "redirect:../mypage/cart_list.do";
+	}
+
+	@GetMapping("mypage/cart_list.do")
+	public String cart_list(Model model,HttpSession session)
+	{
+		String userid=(String)session.getAttribute("userid");
+		List<CartVO> list=gserve.goodsCartListData(userid);
+		model.addAttribute("list",list);
+		model.addAttribute("mypage_jsp","../mypage/cart_list.jsp");
+		model.addAttribute("main_jsp","../mypage/mypage_main.jsp");
+		return "main/main";
+	}
+	
+	  @GetMapping("mypage/buy_list.do")
+	  public String buy_list(HttpSession session,Model model)
+	  {
+		  String userid=(String)session.getAttribute("userid");
+		  List<CartVO> list=gserve.goodsBuyListData(userid);
+		  model.addAttribute("list", list);
+		  model.addAttribute("mypage_jsp", "../mypage/buy_list.jsp");
+		  model.addAttribute("main_jsp", "../mypage/mypage_main.jsp");
+		  return "main/main";
+	  }
+	
 	@GetMapping("reserve/main.do")
 	public String reserve_main(Model model)
 	{
@@ -29,7 +68,8 @@ public class ReserveController {
 		String userid=(String)session.getAttribute("userid");
 		List<ReserveVO> list=service.reserveMyPageListData(userid);
 		model.addAttribute("list",list);
-		model.addAttribute("main_jsp","../mypage/reserve_list.jsp");
+		model.addAttribute("mypage_jsp","../mypage/reserve_list.jsp");
+		model.addAttribute("main_jsp","../mypage/mypage_main.jsp");
 		return "main/main";
 	} 
 	@GetMapping("reserve/reserve_delete.do")

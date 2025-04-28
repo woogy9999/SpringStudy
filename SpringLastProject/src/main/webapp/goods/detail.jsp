@@ -46,11 +46,11 @@
                     <%-- 상세보기 --%>
                     <table class="table">
                       <tr>
-                       <td width=30% class="text-center" rowspan="7">
-                         <img :src="vo.goods_poster" style="width:270px;height: 300px">
+                       <td width=30% class="text-center" rowspan="7" >
+                         <img :src="vo.goods_poster" style="width:300px; height: 350px;">
                        </td>
                        <td colspan="2">
-                        <h3>{{vo.goods_name}}</h3>
+                        <h3>{{vo.goods_name}}</h3> 
                        </td>
                       </tr>
                       <tr>
@@ -66,15 +66,24 @@
                       </tr>
                       <tr>
                         <th width=25%>수량</th>
-                        <td width=45%></td>
+                        <td width=45%>
+                        	<select class="form-control" v-model="account">
+                        	   <option v-for="i in 10" :value="i">{{i}}개</option>
+                        	</select>
+                        </td>
                       </tr>
                       <tr>
                         <th width=25%>총금액</th>
-                        <td width=45%></td>
+                        <td width=45%>{{total}}</td>
                       </tr>
+                      <c:if test="${sessionScope.userid!=null }">
                       <tr>
-                        <td colspan="2"></td>
+                        <td colspan="2" class="text-center">
+                        	<button class="btn-lg btn-danger" @click="goodsCart()">장바구니</button>
+                        	<button class="btn-lg btn-primary" @click="goodsBuy()">바로구매</button>
+                        </td>
                       </tr>
+                      </c:if>
                     </table>
                     </div>
                 </div>
@@ -192,6 +201,8 @@
    	 data(){
    		 return {
    			 vo: {},
+   			 price:0,
+   			 account:0,
    			 reply_list:[],
    			 cno:${no},
    			 type:3,
@@ -212,12 +223,42 @@
    			}
    		}).then(res=>{
    			this.vo=res.data
+   			this.price = Number(res.data.goods_price.replace(/[^0-9]/g, ""))
    		}).catch(error=>{
    			console.log(error.response)
    		})
    		 this.dataRecv()
    	 },
+   	 computed:{
+   		 total(){
+   			 return this.price*this.account
+   		 }
+   	 },
    	 methods:{
+   		 // 장바구니
+   		 goodsCart(){
+   			axios.post("../goods/cart_insert.do",null,{
+   				params:{
+   					account:this.account,
+   					gno:this.cno
+   				}
+   			}).then(res=>{
+				if(res.data==="yes")
+				{
+					location.href="../mypage/cart_list.do"	
+				}
+				else
+				{
+					alert("장바구니 담기 실패!!\n"+res.data)	
+				}
+   			 }).catch(error=>{
+   				 console.log(error.response)
+   			 })
+   		 },
+   		 // 바로구매
+   		 goodsBuy(){
+   			 
+   		 },
    		 replyDelete(no){
    			 //alert("no:"+no)
    			 axios.get('../comment/delete_vue.do',{

@@ -4,9 +4,11 @@ import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sist.service.GoodsService;
+import com.sist.vo.CartVO;
 import com.sist.vo.FoodVO;
 import com.sist.vo.GoodsVO;
 
@@ -50,5 +52,37 @@ public class GoodsRestController {
 		GoodsVO vo = service.busanGoodsDetailData(no);
 		return vo;
 	}
-
+	
+	@PostMapping("goods/cart_insert.do")
+	public String cart_insert(int gno,int account,HttpSession session) {
+		String result="";
+		String userid=(String)session.getAttribute("userid");
+		CartVO vo=new CartVO();
+		vo.setAccount(account);
+		vo.setUserid(userid);
+		vo.setGno(gno);
+		
+		try {
+			service.goodsCartInsert(vo);
+			result="yes";
+		} catch (Exception e) {
+			// TODO: handle exception
+			result=e.getMessage();
+		}
+		return result;
+	}
+	
+	@GetMapping("goods/buy_vue.do")
+	public String goods_buy(int cno)
+	{
+		String result="";
+		try {
+			result="yes";
+			service.goodsBuyUpdate(cno);
+		} catch (Exception e) {
+			result="no";
+		}
+		return result;
+	}
+	
 }

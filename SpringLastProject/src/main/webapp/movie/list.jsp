@@ -42,10 +42,12 @@
     <!-- ****** Archive Area Start ****** -->
     <section class="archive-area section_padding_80" id="listApp">
         <div class="container">
+		  <input type=text class="form-control" v-model="fd" @keydown.enter="movieFind()">
+		   <br>
             <div class="row">
 				<div class="text-center">
-					<input type=text class="form-control">
 				</div>
+				
 				
 				
                 <!-- Single Post -->
@@ -53,27 +55,19 @@
                     <div class="single-post wow fadeInUp" data-wow-delay="0.1s">
                         <!-- Post Thumb -->
                         <div class="post-thumb">
-                       		  <a href="#">
-                            <img src="#">
-                              </a>
+                        	<iframe :src="'http://www.youtube.com/embed/'+vo.videoId" style="width:320px; height: 250px;"></iframe>
                         </div>
                         <!-- Post Content -->
                         <div class="post-content">
-                            <div class="post-meta d-flex">
                                 <div class="post-author-date-area d-flex">
                                     <!-- Post Author -->
-                                    <div class="post-author">
-                                        <a href="#">{{vo.address}}</a>
-                                    </div>
-                                </div>
-                            </div>
+                       		   </div>
                             <a href="#">
-                                <h4 class="post-headline">{{vo.name}}</h4> 
+                                <h4 class="post-headline">{{vo.title}}</h4> 
                             </a>
                         </div>
                     </div>
                 </div>
-                
                 
             </div>
         </div>
@@ -83,13 +77,29 @@
     let ListApp=Vue.createApp({
     	data(){
     		return {
-    			
+    			fd:'부산여행',
+    			list:[]
     		}
     	},
+    	//MVVM: 필수로 면접
     	mounted(){
+    		this.dataRecv()
     	},
     	methods:{
-    		
+    			movieFind(){
+    				this.dataRecv()
+    			},
+    			dataRecv(){
+    				axios.get("../movie/find_vue.do",{
+    					params:{
+    						fd:this.fd
+    					}
+    				}).then(res=>{
+    					this.list=res.data.list
+    				}).catch(error=>{
+    					console.log(error.response)
+    				})
+    			}
     	}
     }).mount("#listApp")
     </script>
