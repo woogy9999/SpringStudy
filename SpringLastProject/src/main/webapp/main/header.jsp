@@ -151,11 +151,11 @@
 		                                    <a class="nav-link" href="../mypage/mypage_main.do">마이페이지</a>
 		                                </li> 
 	                                </sec:authorize>
-	                                <sec:authorize access="hasRole('ROLE_ADMIN')">
+	                                
 		                                <li class="nav-item">
 		                                    <a class="nav-link" href="../adminpage/reserve_list.do">관리자페이지</a>
 		                                </li>
-	                                </sec:authorize>
+	                                
                             </ul>
                         </div>
                     </nav>

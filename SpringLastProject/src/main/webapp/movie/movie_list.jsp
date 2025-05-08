@@ -106,7 +106,7 @@
     	},
     	methods:{
     		view(url){
-    			axios.get(url+"?api_key=697729d3f274ce88cf5729d38280fd33")
+    			axios.get(url+"?api_key=비밀")
     			.then(res=>{
     				this.movies=res.data.results
     				console.log(data)		
